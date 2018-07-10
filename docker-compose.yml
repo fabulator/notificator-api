@@ -6,10 +6,12 @@ services:
             - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
         volumes:
             - ./db-data:/var/lib/mysql
+        ports:
+            - "127.0.0.1:6667:3306"
     node.docker:
         build: .
         ports:
-            - "6666:6666"
+            - "127.0.0.1:6666:6666"
         links:
             - mysql.docker
         environment:

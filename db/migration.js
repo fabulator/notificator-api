@@ -15,5 +15,6 @@ import { MYSQL_SETTINGS } from './../src/config';
         ...MYSQL_SETTINGS,
     });
 
+    process.argv.push('up');
     migration.init(connection, `${__dirname}/../db/migrations`);
 })();
