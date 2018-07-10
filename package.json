@@ -30,6 +30,7 @@
     "@socifi/rollup-config": "^1.10.0",
     "flow-bin": "^0.76.0",
     "flow-coverage-report": "^0.5.0",
+    "flow-typed": "^2.5.1",
     "rollup-plugin-babel": "^3.0.7",
     "rollup-plugin-node-resolve": "^3.3.0"
   },
