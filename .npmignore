@@ -6,3 +6,5 @@ renovate.json
 .flowconfig
 .eslintrc.js
 flow-typed
+db-data
+.env

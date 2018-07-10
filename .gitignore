@@ -3,3 +3,5 @@ flow-typed/npm
 .idea
 build
 tests
+db-data
+.env

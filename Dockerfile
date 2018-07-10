@@ -6,7 +6,7 @@ ADD package.json package-lock.json /app/
 
 RUN npm ci
 
-ADD src /app/build
+ADD build /app/build
 
 ADD db /app/db
 

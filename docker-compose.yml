@@ -1,0 +1,24 @@
+version: '2'
+services:
+    mysql.docker:
+        image: mysql:latest
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+        volumes:
+            - ./db-data:/var/lib/mysql
+    node.docker:
+        build: .
+        ports:
+            - "6666:6666"
+        links:
+            - mysql.docker:nodejs-app
+        environment:
+            - MYSQL_HOST=${MYSQL_HOST}
+            - MYSQL_USER=${MYSQL_USER}
+            - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+            - MYSQL_DATABASE=${MYSQL_DATABASE}
+            - PUBLIC_VAPID_KEY=${PUBLIC_VAPID_KEY}
+            - PRIVATE_VAPID_KEY=${PRIVATE_VAPID_KEY}
+            - EMAIL_VAPID_KEY=${EMAIL_VAPID_KEY}
+            - API_SECRED=${API_SECRED}
+            - GCM_API_KEY=${GCM_API_KEY}
