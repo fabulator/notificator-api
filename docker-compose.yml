@@ -1,9 +1,9 @@
 version: '2'
 services:
     mysql.docker:
-        image: mysql:latest
+        image: mysql:5
         environment:
-            MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+            - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
         volumes:
             - ./db-data:/var/lib/mysql
     node.docker:
@@ -11,7 +11,7 @@ services:
         ports:
             - "6666:6666"
         links:
-            - mysql.docker:nodejs-app
+            - mysql.docker
         environment:
             - MYSQL_HOST=${MYSQL_HOST}
             - MYSQL_USER=${MYSQL_USER}

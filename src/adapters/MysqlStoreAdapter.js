@@ -29,12 +29,18 @@ export interface StoreAdapter {
 
 export default class MysqlStoreAdapter implements StoreAdapter {
     connection: *;
+    settings: Object;
 
     constructor(settings: Object) {
-        this.connection = mysql.createConnection(settings);
+        this.connection = null;
+        this.settings = settings;
     }
 
     async _query(...parameters: *) {
+        if (!this.connection) {
+            this.connection = mysql.createConnection(this.settings);
+        }
+
         return (await this.connection).query(...parameters);
     }
 

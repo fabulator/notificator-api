@@ -1,10 +1,19 @@
 import mysql from 'mysql';
+import promiseMysql from 'promise-mysql';
 import migration from 'mysql-migrations';
 import { MYSQL_SETTINGS } from './../src/config';
 
-const connection = mysql.createPool({
-    connectionLimit: 10,
-    ...MYSQL_SETTINGS,
-});
+(async () => {
+    (await promiseMysql.createConnection({
+        host: MYSQL_SETTINGS.host,
+        password: MYSQL_SETTINGS.password,
+        user: MYSQL_SETTINGS.user,
+    })).query(`CREATE DATABASE IF NOT EXISTS ${MYSQL_SETTINGS.database};`);
 
-migration.init(connection, `${__dirname}/../db/migrations`);
+    const connection = mysql.createPool({
+        connectionLimit: 10,
+        ...MYSQL_SETTINGS,
+    });
+
+    migration.init(connection, `${__dirname}/../db/migrations`);
+})();

@@ -2,12 +2,14 @@ FROM node:10-alpine
 
 WORKDIR /app
 
-ADD package.json package-lock.json /app/
+ADD package.json package-lock.json rollup.config.js /app/
 
 RUN npm ci
 
-ADD build /app/build
+ADD src /app/src
 
 ADD db /app/db
+
+RUN npm run build
 
 CMD [ "npm", "start" ]
