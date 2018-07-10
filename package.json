@@ -1,0 +1,47 @@
+{
+  "name": "notificator-api",
+  "version": "0.1.0",
+  "description": "API service for handling notifications.",
+  "main": "build/index.js",
+  "scripts": {
+    "lint": "eslint ./src",
+    "lint-export": "npm run lint -- -o ./tests/checkstyle/checkstyle.xml -f checkstyle",
+    "flow": "flow",
+    "flow-init": "flow-typed install web-push@x.x mysql@2.x promise-mysql@x.x express@4.16.x cors@2.x body-parser@1.x",
+    "flow-coverage": "flow-coverage-report -f \"node_modules\\flow-bin\\vendor\\flow\" -i \"src/**/*.js\" -t html -t text -t json -o tests/coverage/flow",
+    "build": "rollup --config ./rollup.config.js",
+    "watch": "npm run build --watch",
+    "start": "node ./build/index.js",
+    "prepublishOnly": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/fabulator/notificator-api.git"
+  },
+  "homepage": "https://github.com/fabulator/notificator-api#readme",
+  "keywords": [
+    "notifications",
+    "web-notifications"
+  ],
+  "author": "Michal Ozogán <michal@ozogan.eu>",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@socifi/eslint-config": "^1.10.0",
+    "@socifi/rollup-config": "^1.10.0",
+    "flow-bin": "^0.76.0",
+    "flow-coverage-report": "^0.5.0",
+    "rollup-plugin-babel": "^3.0.7",
+    "rollup-plugin-node-resolve": "^3.3.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "express-validator": "^5.2.0",
+    "helmet": "^3.12.1",
+    "mysql": "^2.15.0",
+    "mysql-migrations": "^1.0.6",
+    "promise-mysql": "^3.3.1",
+    "web-push": "^3.3.2"
+  }
+}
