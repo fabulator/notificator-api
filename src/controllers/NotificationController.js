@@ -21,8 +21,14 @@ export default class NotificationController extends BaseController {
 
         const responses = await Promise.all(subscriptions.map(async (subscriber) => {
             try {
-                return await this.webpush.sendNotification(subscriber, subscriber.body && subscriber.body.keys ? notification : null);
+                const body = subscriber.body ? JSON.parse(subscriber.body) : null;
+                const haveKeys = body && body.keys;
+                return await this.webpush.sendNotification({
+                    endpoint: subscriber.endpoint,
+                    ...(haveKeys ? { keys: body.keys } : {}),
+                }, haveKeys ? JSON.stringify(notification) : null);
             } catch (error) {
+                console.log(error);
                 return error;
             }
         }));

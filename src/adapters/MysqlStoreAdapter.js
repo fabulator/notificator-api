@@ -97,7 +97,7 @@ export default class MysqlStoreAdapter implements StoreAdapter {
             'WHERE endpoint = ? AND viewed = 0', endpoint);
 
         if (results.length > 0) {
-            await this._query(`UPDATE queue SET viewed = ? WHERE id IN(${results.map(item => item.id).join(',')})`, 1);
+            await this._query(`UPDATE queue SET viewed = 1 WHERE id IN(${results.map(item => item.id).join(',')})`);
         }
 
         return results.map(item => JSON.parse(item.notification));
@@ -107,8 +107,10 @@ export default class MysqlStoreAdapter implements StoreAdapter {
     async addNotificationToQueue(notificationId: number, namespace: string): Promise<*> {
         const subscriptions = await this.getSubscriptions(namespace);
 
-        return this._query('INSERT INTO queue (notification_id, subscriber_id) VALUES (?)', subscriptions.map((subscription) => {
-            return [notificationId, subscription.id];
-        }));
+        return this._query(`INSERT INTO queue (notification_id, subscriber_id) VALUES ${
+            subscriptions.map((subscription) => {
+                return `(${notificationId}, ${subscription.id})`;
+            }).join(',')
+        }`);
     }
 }
