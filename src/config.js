@@ -7,7 +7,6 @@ const {
     PUBLIC_VAPID_KEY,
     PRIVATE_VAPID_KEY,
     EMAIL_VAPID_KEY,
-    API_SECRED,
 } = process.env;
 
 export const MYSQL_SETTINGS = {
@@ -26,4 +25,4 @@ export const VAPID_KEYS = {
     email: `mailto:${EMAIL_VAPID_KEY || ''}`,
 };
 
-export const API_SECRET = API_SECRED;
+export const API_SECRET = process.env.API_SECRET;
